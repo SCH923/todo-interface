@@ -22,6 +22,7 @@ const TaskForm: React.FC<Props> = ({ tasks, setTasks }) => {
         setTasks([newTask, ...tasks])
     }
 
+    //完了チェックが新規投稿時ずれる
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>

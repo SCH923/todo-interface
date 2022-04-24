@@ -1,6 +1,7 @@
 import React from 'react'
 import {Task} from './Types'
 import DeleteIcon from '@mui/icons-material/Delete';
+import Card from '@mui/material/Card';
 
 type Props = {
     task: Task
@@ -11,22 +12,24 @@ type Props = {
 const TaskItem: React.FC<Props> = ({ task, handleDone, handleDelete }) => {
     return (
         <li>
-            <label>
-                <input
-                    type="checkbox"
-                    onClick={() => handleDone(task)}
-                />
-                <span>
-                {
-                    task.done ? <s>{task.text}</s> : task.text
-                }
-                </span>
-            </label>
-            <button
-                onClick={() => handleDelete(task)}
-            >
-                削除
-            </button>
+            <Card sx={{ minWidth: 50 }}>
+                <label>
+                    <input
+                        type="checkbox"
+                        onClick={() => handleDone(task)}
+                    />
+                    <span>
+                    {
+                        task.done ? <s>{task.text}</s> : task.text
+                    }
+                    </span>
+                </label>
+                <button
+                    onClick={() => handleDelete(task)}
+                >
+                    <DeleteIcon/>
+                </button>
+            </Card>
         </li>
     )
 }
