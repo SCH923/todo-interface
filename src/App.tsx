@@ -6,12 +6,20 @@ import { Task } from './components/Types'
 
 const initialState: Task[] = [
   {
+    text: '3番目で紛らわしいやつ',
+    done: false
+  },
+  {
+    text: '3番目で紛らわしいやつ',
+    done: false
+  },
+  {
     text: '次にやるやつ',
     done: false
   },
   {
     text: 'はじめにやるやつ',
-    done: true
+    done: false
   }
 ]
 
