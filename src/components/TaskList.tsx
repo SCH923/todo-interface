@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { useQuery } from 'react-query'
 import TaskItem from './TaskItem'
 import { Task } from './Types'
 
@@ -6,7 +8,21 @@ type Props = {
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>
 }
 
+
+function useTasks() {
+    return useQuery("tasks", async () => {
+        const { data } = await axios.get(
+            "http://localhost:8000/"
+        );
+        console.log(data)
+        return data;
+    });
+}
+
 const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
+
+    const { status, data, error, isFetching } = useTasks()
+    console.log(data)
 
     const handleDone = (task:Task) => {
         setTasks(
@@ -28,7 +44,7 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
     return (
         <ul>
             {
-                tasks.map((task: Task, index: number) => {
+                data.map((task: Task, index: number) => {
                     return (
                         <TaskItem
                             key={index}
