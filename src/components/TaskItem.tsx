@@ -56,6 +56,7 @@ const TaskItem: React.FC<Props> = ({ task }) => {
     return (
         <li>
             <label>
+                {/*チェックボックスにデフォルト値が設定されていない */}
                 <input
                     type="checkbox"
                     onClick={(event) => handleDone(event,task)}
