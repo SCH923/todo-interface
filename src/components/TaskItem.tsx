@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 
 type Props = {
     task: Task
-    handleDone: (task: Task) => void
+    handleDone: (event: any, task: Task) => void
     handleDelete: (task: Task) => void
 }
 
@@ -16,7 +16,7 @@ const TaskItem: React.FC<Props> = ({ task, handleDone, handleDelete }) => {
                 <label>
                     <input
                         type="checkbox"
-                        onClick={() => handleDone(task)}
+                        onClick={(event) => handleDone(event,task)}
                     />
                     <span>
                     {

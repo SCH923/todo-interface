@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import TaskItem from './TaskItem'
 import { Task } from './Types'
 
@@ -13,26 +13,37 @@ function useTasks() {
 }
 
 const TaskList: React.FC = () => {
-
+    const queryClient = useQueryClient()
     const { isLoading, data, error, isFetching } = useTasks()
 
-    const handleDone = (task:Task) => {
-        /*
-        setTasks(
-            tasks.map(taskItem => {
-                if (taskItem === task) {
-                    taskItem.done = !taskItem.done
-                }
-                return taskItem
-            })
-        ) */
+    const deleteMutation = useMutation((task: Task) => {
+        return axios.delete('http://localhost:8000/', { data: task })
+    }, {
+        onSuccess: response => {
+            queryClient.setQueryData(['tasks'], response.data)
+        }
+    })
+
+    const putMutation = useMutation((task: Task) => {
+        return axios.put('http://localhost:8000/' + task.id, task)
+    }, {
+        onSuccess: response => {
+            queryClient.setQueryData(['tasks'], response.data)
+        }
+    })
+
+    const handleDone = (event: any, task: Task) => {
+        
+        let newTask:Task = {
+            id: task.id,
+            text: task.text,
+            state: event.target.checked ? "DONE" : "READY"
+        }
+        putMutation.mutate(newTask)
     }
 
     const handleDelete = (task: Task) => {
-        /*
-        setTasks(
-            tasks.filter(taskItem => taskItem !== task)
-        )*/
+       deleteMutation.mutate(task)
     }
 
     if (isLoading) {
@@ -46,11 +57,10 @@ const TaskList: React.FC = () => {
     return (
         <ul>
             {
-                data.map((task: Task, index: number) => {
-                    console.log(index)
+                data.map((task: Task) => {
                     return (
                         <TaskItem
-                            key={index}
+                            key={task.id}
                             task={task}
                             handleDone={handleDone}
                             handleDelete={handleDelete}

@@ -4,9 +4,15 @@ import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 const TaskForm: React.FC = () => {
-    
+
+    const queryClient = useQueryClient()
+
     const postMutation = useMutation((task:Task) => {
         return axios.post('http://localhost:8000/', task)
+    }, {
+        onSuccess: response => {
+            queryClient.setQueryData(['tasks'], response.data)
+        }
     })
 
     const {
@@ -26,9 +32,6 @@ const TaskForm: React.FC = () => {
         console.log(newTask)
     }
 
-    const queryClient = useQueryClient()
-
-    //完了チェックが新規投稿時ずれる
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
