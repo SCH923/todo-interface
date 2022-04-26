@@ -53,9 +53,9 @@ const TaskList: React.FC = () => {
                     setFilter(e.target.value as Filter)
                 }}
             >
-                <option value="ALL">全てのタスク</option>
+                <option value="ALL">すべてのタスク</option>
                 <option value="DONE">完了したタスク</option>
-                <option value="READY">現在のタスク</option>
+                <option value="READY">アクティブなタスク</option>
             </select>
             <ul>
                 {

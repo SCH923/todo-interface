@@ -1,7 +1,6 @@
 import React from 'react'
 import {Task} from './Types'
 import DeleteIcon from '@mui/icons-material/Delete';
-import Card from '@mui/material/Card';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
@@ -12,7 +11,7 @@ type Props = {
 const TaskItem: React.FC<Props> = ({ task }) => {
 
     const queryClient = useQueryClient()
-    
+
     const deleteMutation = useMutation((task: Task) => {
         return axios.delete('http://localhost:8000/', { data: task })
     }, {
@@ -31,7 +30,7 @@ const TaskItem: React.FC<Props> = ({ task }) => {
 
     const handleDone = (event: any, task: Task) => {
 
-        let newTask: Task = {
+        const newTask: Task = {
             id: task.id,
             text: task.text,
             state: event.target.checked ? "DONE" : "READY"
@@ -43,26 +42,35 @@ const TaskItem: React.FC<Props> = ({ task }) => {
         deleteMutation.mutate(task)
     }
 
+    const handleOnEdit = (event: any, task: Task) => {
+        const newTask: Task = {
+            id: task.id,
+            text: event.target.value,
+            state: task.state
+        }
+        putMutation.mutate(newTask)
+    }
+
+    //done check
+    const done = task.state === "DONE" ? true : false 
     return (
         <li>
-            <Card sx={{ minWidth: 50 }}>
-                <label>
-                    <input
-                        type="checkbox"
-                        onClick={(event) => handleDone(event,task)}
-                    />
-                    <span>
-                    {
-                        task.state === "DONE" ? <s>{task.text}</s> : task.text
-                    }
-                    </span>
-                </label>
-                <button
-                    onClick={() => handleDelete(task)}
-                >
-                    <DeleteIcon/>
-                </button>
-            </Card>
+            <label>
+                <input
+                    type="checkbox"
+                    onClick={(event) => handleDone(event,task)}
+                />
+                <input
+                    type="text"
+                    value={task.text}
+                    onChange={(event) => handleOnEdit(event,task)}
+                />
+            </label>
+            <button
+                onClick={() => handleDelete(task)}
+            >
+                <DeleteIcon/>
+            </button>
         </li>
     )
 }
