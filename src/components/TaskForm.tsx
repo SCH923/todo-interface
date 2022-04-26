@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const TaskForm: React.FC = () => {
     
-    const postMutation = useMutation(task => {
+    const postMutation = useMutation((task:Task) => {
         return axios.post('http://localhost:8000/', task)
     })
 
@@ -19,9 +19,11 @@ const TaskForm: React.FC = () => {
         const newTask:Task = {
             id: Date.now(),
             text: data.taskText,
-            done: false
+            state: "READY"
         }
 
+        postMutation.mutate(newTask)
+        console.log(newTask)
     }
 
     const queryClient = useQueryClient()

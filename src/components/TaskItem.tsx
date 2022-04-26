@@ -20,7 +20,7 @@ const TaskItem: React.FC<Props> = ({ task, handleDone, handleDelete }) => {
                     />
                     <span>
                     {
-                        task.done ? <s>{task.text}</s> : task.text
+                        task.state === "DONE" ? <s>{task.text}</s> : task.text
                     }
                     </span>
                 </label>
