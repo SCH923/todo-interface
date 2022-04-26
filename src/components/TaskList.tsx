@@ -3,28 +3,21 @@ import { useQuery } from 'react-query'
 import TaskItem from './TaskItem'
 import { Task } from './Types'
 
-type Props = {
-    tasks: Task[]
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
-}
-
-
 function useTasks() {
     return useQuery("tasks", async () => {
         const { data } = await axios.get(
             "http://localhost:8000/"
         );
-        console.log(data)
         return data;
     });
 }
 
-const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
+const TaskList: React.FC = () => {
 
-    const { status, data, error, isFetching } = useTasks()
-    console.log(data)
+    const { isLoading, data, error, isFetching } = useTasks()
 
     const handleDone = (task:Task) => {
+        /*
         setTasks(
             tasks.map(taskItem => {
                 if (taskItem === task) {
@@ -32,19 +25,29 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
                 }
                 return taskItem
             })
-        )
+        ) */
     }
 
     const handleDelete = (task: Task) => {
+        /*
         setTasks(
             tasks.filter(taskItem => taskItem !== task)
-        )
+        )*/
+    }
+
+    if (isLoading) {
+        return (
+        <div>
+            <span>Loading...</span>
+        </div>
+        );
     }
 
     return (
         <ul>
             {
                 data.map((task: Task, index: number) => {
+                    console.log(index)
                     return (
                         <TaskItem
                             key={index}

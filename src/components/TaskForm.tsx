@@ -1,12 +1,13 @@
 import { Task } from './Types'
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from 'react-query';
+import axios from 'axios';
 
-type Props = {
-    tasks: Task[]
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
-}
-
-const TaskForm: React.FC<Props> = ({ tasks, setTasks }) => {
+const TaskForm: React.FC = () => {
+    
+    const postMutation = useMutation(task => {
+        return axios.post('http://localhost:8000/', task)
+    })
 
     const {
         register,
@@ -16,11 +17,14 @@ const TaskForm: React.FC<Props> = ({ tasks, setTasks }) => {
 
     const onSubmit = (data: any) => {
         const newTask:Task = {
+            id: Date.now(),
             text: data.taskText,
             done: false
         }
-        setTasks([newTask, ...tasks])
+
     }
+
+    const queryClient = useQueryClient()
 
     //完了チェックが新規投稿時ずれる
     return (
