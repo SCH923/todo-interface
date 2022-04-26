@@ -15,20 +15,11 @@ function useTasks() {
 const TaskList: React.FC = () => {
     const { isLoading, data, error, isFetching } = useTasks()
 
-
     if (isLoading) {
         return (
         <div>
             <span>Loading...</span>
         </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div>
-                <span>error</span>
-            </div>
         );
     }
 
