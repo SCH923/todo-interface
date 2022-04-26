@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react';
 import { useQuery } from 'react-query'
 import TaskItem from './TaskItem'
 import { Task } from './Types'
@@ -12,8 +13,12 @@ function useTasks() {
     });
 }
 
+type Filter = 'ALL' | 'DONE' | 'READY'
+
 const TaskList: React.FC = () => {
     const { isLoading, data, error, isFetching } = useTasks()
+
+    const [filter, setFilter] = useState<Filter>('ALL');
 
     if (isLoading) {
         return (
@@ -22,20 +27,49 @@ const TaskList: React.FC = () => {
         </div>
         );
     }
+    
+    const tasks = data.filter((task: Task) => {
+        switch (filter) {
+            case 'ALL':
+                return task
+
+            case 'DONE':
+                return task.state === "DONE"
+
+            case 'READY':
+                return task.state === "READY"
+
+            default:
+                return task
+        }
+    })
 
     return (
-        <ul>
-            {
-                data.map((task: Task) => {
-                    return (
-                        <TaskItem
-                            key={task.id}
-                            task={task}
-                        />    
-                    )
-                })
-            }
-        </ul>
+        <div>
+            <select
+                defaultValue="ALL"
+                onChange={(e) => {
+                    
+                    setFilter(e.target.value as Filter)
+                }}
+            >
+                <option value="ALL">全てのタスク</option>
+                <option value="DONE">完了したタスク</option>
+                <option value="READY">現在のタスク</option>
+            </select>
+            <ul>
+                {
+                    tasks.map((task: Task) => {
+                        return (
+                            <TaskItem
+                                key={task.id}
+                                task={task}
+                            />
+                        )
+                    })
+                }
+            </ul>
+        </div>
     )
 }
 
