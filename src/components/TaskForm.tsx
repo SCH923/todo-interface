@@ -31,7 +31,6 @@ const TaskForm: React.FC = () => {
         }
 
         postMutation.mutate(newTask)
-        console.log(newTask)
     }
 
     return (

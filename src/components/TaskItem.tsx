@@ -31,12 +31,13 @@ const TaskItem: React.FC<Props> = ({ task }) => {
     })
 
     const handleDone = (event: any, task: Task) => {
-
+        
         const newTask: Task = {
             id: task.id,
             text: task.text,
             state: event.target.checked ? "DONE" : "READY"
         }
+
         putMutation.mutate(newTask)
     }
 
