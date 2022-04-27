@@ -2,6 +2,9 @@ import { Task } from './Types'
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import "./TaskForm.css"
+import SendIcon from '@mui/icons-material/Send';
+import { Button } from '@mui/material';
 
 const TaskForm: React.FC = () => {
 
@@ -17,8 +20,7 @@ const TaskForm: React.FC = () => {
 
     const {
         register,
-        handleSubmit,
-        formState:{ errors }
+        handleSubmit
     } = useForm()
 
     const onSubmit = (data: any) => {
@@ -36,8 +38,10 @@ const TaskForm: React.FC = () => {
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register('taskText', { required: true })} />
-                {errors.taskText && <p>タスクを入力してください</p>}
-                <input type="submit" />
+                <Button
+                    type="submit">
+                    <SendIcon/>
+                </Button>
             </form>
         </div>
     )

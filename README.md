@@ -9,6 +9,9 @@
 
 ## 考慮した実装
 1. submitの方式
-2. 画面構成
 
-pinterest, behance
+
+2. redux不使用
+
+通信関係で複雑になることが想定されたため、不使用。
+代替として、react queryを使用。

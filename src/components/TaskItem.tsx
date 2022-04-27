@@ -3,6 +3,8 @@ import {Task} from './Types'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { Button, Checkbox } from '@mui/material';
+import './TaskItem.css'
 
 type Props = {
     task: Task
@@ -51,15 +53,12 @@ const TaskItem: React.FC<Props> = ({ task }) => {
         putMutation.mutate(newTask)
     }
 
-    //done check
-    const done = task.state === "DONE" ? true : false 
     return (
-        <li>
+        <li className="TaskItem">
             <label>
-                {/*チェックボックスにデフォルト値が設定されていない */}
-                <input
-                    type="checkbox"
-                    onClick={(event) => handleDone(event,task)}
+                <Checkbox
+                    checked={task.state === "DONE" ? true : false }
+                    onChange={(event) => handleDone(event, task) }
                 />
                 <input
                     type="text"
@@ -67,11 +66,12 @@ const TaskItem: React.FC<Props> = ({ task }) => {
                     onChange={(event) => handleOnEdit(event,task)}
                 />
             </label>
-            <button
+            <Button
+                variant="text"
                 onClick={() => handleDelete(task)}
             >
-                <DeleteIcon/>
-            </button>
+                <DeleteIcon />
+            </Button>
         </li>
     )
 }
