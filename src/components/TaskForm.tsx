@@ -34,9 +34,13 @@ const TaskForm: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="TaskForm">
+            <span>タスク入力欄</span>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register('taskText', { required: true })} />
+                <input
+                    className="FormInput"
+                    {...register('taskText', { required: true })}
+                />
                 <Button
                     type="submit">
                     <SendIcon/>
