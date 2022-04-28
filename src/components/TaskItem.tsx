@@ -3,7 +3,7 @@ import {Task} from './Types'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
-import { Button, Checkbox } from '@mui/material';
+import { Button, Checkbox, TextField } from '@mui/material';
 import './TaskItem.css'
 
 type Props = {
@@ -63,19 +63,23 @@ const TaskItem: React.FC<Props> = ({ task }) => {
                     checked={task.state === "DONE" ? true : false }
                     onChange={(event) => handleDone(event, task) }
                 />
+                
                 {task.state === "DONE" ?
-                    <input
-                        className="TaskTextDone"
-                        type="text"
-                        value={task.text}
-                        onChange={(event) => handleOnEdit(event,task)}/>
+                    <TextField 
+                    className='TaskTextDone'
+                    id="standard-basic"
+                    variant="standard"
+                    value={task.text}
+                    onChange={(event) => handleOnEdit(event,task)}
+                    />
                     :
-                    <input
-                        className="TaskText"
-                        type="text"
-                        value={task.text}
-                        onChange={(event) => handleOnEdit(event,task)}/>
-                    }
+                    <TextField 
+                    id="standard-basic"
+                    variant="standard"
+                    value={task.text}
+                    onChange={(event) => handleOnEdit(event,task)}
+                    />
+                }
             </label>
             <Button
                 variant="text"

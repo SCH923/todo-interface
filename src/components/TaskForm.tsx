@@ -14,13 +14,15 @@ const TaskForm: React.FC = () => {
         return axios.post('http://localhost:8000/', task)
     }, {
         onSuccess: response => {
+            
             queryClient.setQueryData(['tasks'], response.data)
         }
     })
 
     const {
         register,
-        handleSubmit
+        handleSubmit,
+        reset
     } = useForm()
 
     const onSubmit = (data: any) => {
@@ -29,8 +31,8 @@ const TaskForm: React.FC = () => {
             text: data.taskText,
             state: "READY"
         }
-
         postMutation.mutate(newTask)
+        reset({taskText:''})
     }
 
     return (
@@ -39,10 +41,11 @@ const TaskForm: React.FC = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     className="FormInput"
-                    {...register('taskText', { required: true })}
+                    {...register("taskText", { required: true })}
                 />
                 <Button
-                    type="submit">
+                    type="submit"
+                >
                     <SendIcon/>
                 </Button>
             </form>

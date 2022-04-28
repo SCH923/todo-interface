@@ -1,5 +1,6 @@
 li {
   list-style: none;
+  margin-bottom: 1vh;
 }
 
 .TaskText {
