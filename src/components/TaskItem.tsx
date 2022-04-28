@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Task} from './Types'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation, useQueryClient } from 'react-query';
@@ -45,7 +45,11 @@ const TaskItem: React.FC<Props> = ({ task }) => {
         deleteMutation.mutate(task)
     }
 
-    const handleOnEdit = (event: any, task: Task) => {
+    const handleOnEdit = (event: any) => {
+
+        setTaskText(event.target.value)
+    }
+    const handleOnBlur = (event: any, task: Task) => {
 
         const newTask: Task = {
             id: task.id,
@@ -54,7 +58,9 @@ const TaskItem: React.FC<Props> = ({ task }) => {
         }
         
         putMutation.mutate(newTask)
+
     }
+    const [taskText, setTaskText] = useState(task.text)
 
     return (
         <li className="TaskItem">
@@ -69,15 +75,17 @@ const TaskItem: React.FC<Props> = ({ task }) => {
                     className='TaskTextDone'
                     id="standard-basic"
                     variant="standard"
-                    value={task.text}
-                    onChange={(event) => handleOnEdit(event,task)}
+                    value={taskText}
+                    onChange={(event) => handleOnEdit(event)}
+                    onBlur={(event) => handleOnBlur(event,task)}
                     />
                     :
                     <TextField 
                     id="standard-basic"
                     variant="standard"
-                    value={task.text}
-                    onChange={(event) => handleOnEdit(event,task)}
+                    value={taskText}
+                    onChange={(event) => handleOnEdit(event)}
+                    onBlur={(event) => handleOnBlur(event,task)}
                     />
                 }
             </label>
