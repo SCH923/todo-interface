@@ -9,7 +9,9 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
     - [uvicorn](https://pypi.org/project/uvicorn/)
     - [fastapi](https://fastapi.tiangolo.com/ja/)
 
-2. 起動コマンド
+2. todo-fastapiフォルダへ移動
+
+3. 起動コマンド入力
 ```
     sh ./start.sh
 ```
@@ -21,10 +23,10 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 
 ### 考慮した実装、画面設計
 
-1. redux不使用
+1. Redux-Toolkit不使用
 
     複雑になることが想定されたため、不使用。  
-    データ取得として、react queryを使用。
+    データ取得として、React Queryを使用。
 
 2. FastAPIライブラリによるREST APIサーバ実装
 
@@ -39,7 +41,9 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 4. リストのデザイン
 
     inputは未選択時にも枠があるが、これを除去。  
-    タスク編集時には枠を描画することで、編集中であることをユーザに伝える。
+    タスク編集時には枠を描画することで、編集中であることをユーザに伝える。  
+    タスク完了チェック済の場合は取り消し線を引くことで、  
+    完了していることをユーザに伝える。
 
 5. Atomic Design
 

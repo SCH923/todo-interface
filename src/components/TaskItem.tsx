@@ -46,11 +46,13 @@ const TaskItem: React.FC<Props> = ({ task }) => {
     }
 
     const handleOnEdit = (event: any, task: Task) => {
+
         const newTask: Task = {
             id: task.id,
             text: event.target.value,
             state: task.state
         }
+        
         putMutation.mutate(newTask)
     }
 
@@ -61,11 +63,19 @@ const TaskItem: React.FC<Props> = ({ task }) => {
                     checked={task.state === "DONE" ? true : false }
                     onChange={(event) => handleDone(event, task) }
                 />
-                <input
-                    type="text"
-                    value={task.text}
-                    onChange={(event) => handleOnEdit(event,task)}
-                />
+                {task.state === "DONE" ?
+                    <input
+                        className="TaskTextDone"
+                        type="text"
+                        value={task.text}
+                        onChange={(event) => handleOnEdit(event,task)}/>
+                    :
+                    <input
+                        className="TaskText"
+                        type="text"
+                        value={task.text}
+                        onChange={(event) => handleOnEdit(event,task)}/>
+                    }
             </label>
             <Button
                 variant="text"
