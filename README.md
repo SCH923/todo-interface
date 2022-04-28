@@ -3,15 +3,13 @@
 To Doを管理するREST APIとブラウザで表示するwebクライアントで構成される。
 # To Do管理 サーバ仕様
 
-### 起動手順
+### サーバ起動手順
 
 1. 必要なライブラリのインストール
     - [uvicorn](https://pypi.org/project/uvicorn/)
     - [fastapi](https://fastapi.tiangolo.com/ja/)
 
-2. todo-fastapiフォルダへ移動
-
-3. 起動コマンド入力
+2. todo-fastapiフォルダでコマンド実行
 ```
     sh ./start.sh
 ```
@@ -20,6 +18,19 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 1. 起動手順に従い、サーバ起動
 2. ブラウザで http://localhost:8000/docs へアクセス
 # To Do管理 クライアント仕様
+
+### クライアント起動手順
+
+1. react-ts-todoフォルダへ移動  
+
+2. 必要なライブラリのインストール
+```
+    npm install
+```
+3. コマンド実行
+```
+    sh ./start.sh
+```
 
 ### 考慮した実装、画面設計
 
@@ -40,8 +51,6 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 
 4. リストのデザイン
 
-    inputは未選択時にも枠があるが、これを除去。  
-    タスク編集時には枠を描画することで、編集中であることをユーザに伝える。  
     タスク完了チェック済の場合は取り消し線を引くことで、  
     完了していることをユーザに伝える。
 
@@ -52,7 +61,7 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
     |atoms|TaskItem, TaskForm|UIパーツ最小構成部品|
     |molecules||atomsの組み合わせ部品|
     |organisms| TaskList, TaskForm|独立して機能し、他のページでも同じ意図で使える|
-    |templates||atoms,molecules,organismsの配置|
+    |templates|App|atoms,molecules,organismsの配置|
     |pages|App|templatesにデータを流し込みページを動かす|
 
 6. タスクの状態
@@ -64,4 +73,4 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 7. フォームのクリア
 
     タスク投稿後、フォームはクリアし、次の入力に備える。  
-    タスク一覧に移動して処理が正しく完了したように見える。
+    フォームから投稿したタスク名が、タスク一覧に移動したように見える。
