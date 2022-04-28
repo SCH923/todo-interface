@@ -58,9 +58,9 @@ To Doを管理するREST APIとブラウザで表示するwebクライアント�
 
     |グループ名|コンポーネント|特徴|
     |---|---|---|
-    |atoms|TaskItem, TaskForm|UIパーツ最小構成部品|
-    |molecules||atomsの組み合わせ部品|
-    |organisms| TaskList, TaskForm|独立して機能し、他のページでも同じ意図で使える|
+    |atoms|Checkbox, TextField, Button, Icon, select|UIパーツ最小構成部品|
+    |molecules|TaskItem, TaskForm|atomsの組み合わせ部品|
+    |organisms|TaskList, TaskForm|独立して機能し、他のページでも同じ意図で使える|
     |templates|App|atoms,molecules,organismsの配置|
     |pages|App|templatesにデータを流し込みページを動かす|
 
